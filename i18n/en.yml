@@ -1,0 +1,32 @@
+system_admin_menu:
+  apps:
+    calendar_menu:
+      title: Calendars
+      calendars: Calendars
+calendar_management:
+  title: Calendars
+  description: Calendars
+  table:
+    id: Id
+    name: Name
+    description: Description
+    events: Events
+  form:
+    name: Name
+    description: Description
+    name_required: Name is required
+event_management:
+  title: Events
+  description: Events
+  table:
+    id: Id
+    from: From
+    to: To
+    type: Type
+  form:
+    from: From
+    to: To
+    type: Type
+    description: Description
+    from_required: From mandatory
+    to_required: To mandatory

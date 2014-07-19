@@ -1,0 +1,98 @@
+ require(['jquery', 'YSDEntityManagement', 'YSDForms', 
+          'YSDRemoteDataSource', 'YSDSelectSelector', 'jquery.validate'], 
+          function($, EntityManagement, YSDForms,
+            RemoteDataSource, SelectSelector) {
+
+ 
+  function CalendarEventHook() {
+     
+    this.entityKey = function(entity) {
+      return entity.id;
+    }
+
+    this.onEdit = function(entity) {
+      $('#from').focus();    
+      this.configForm(entity);
+    };
+  
+    this.onNew = function() {
+      $('#name').focus();
+      this.configForm(null);
+    }
+    
+    this.onRenderEntities = function(entities) {
+      $('.elements-search').show(); 
+    }
+    
+    this.configForm = function(entity) {
+                  
+         var locale = $.datepicker.regional["<%=session[:locale] || 'es'%>"];             
+         $('#from').datepicker(
+                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:2, 
+                  dateFormat: 'dd/mm/yy'},
+                  locale);
+         $('#to').datepicker(
+                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:2, 
+                  dateFormat: 'dd/mm/yy'},
+                  locale);
+         if (entity != null) {
+           $('#from').datepicker('setDate', entity.from);
+           $('#to').datepicker('setDate', entity.to);
+         }
+
+         var eventTypeDataSource = new RemoteDataSource('/api/event-types',{'id':'id','description':'name'});
+         var eventTypeValue = (this.entity && this.entity.event_type)?this.entity.event_type.id:null;
+         var eventTypeSelector = new SelectSelector('event_type[id]', eventTypeDataSource, eventTypeValue); 
+
+         this.configValidation();
+      
+    }
+    
+    this.configValidation = function() {
+             
+         $('#calendar_event_management_form').validate({
+            
+            submitHandler: function(form) 
+            {
+               return false;
+            },
+                               
+            rules : { // rules
+               'from': {
+                 required: true 
+               },
+               'to': {
+                 required: true 
+               }
+            },
+            
+            messages : { // messages
+               'from': {
+                 required : '<%=t.event_management.form.from_required%>'
+               },              
+               'from': {
+                 required : '<%=t.event_management.form.from_required%>'
+               }
+            }
+            
+          }
+         );
+      
+      
+    }
+    
+  };
+  
+  var urls = { 
+               query_url  : '/api/events',
+               create_url : '/api/event',
+               update_url : '/api/event',
+               delete_url : '/api/event',
+               get_url    : '/api/event'
+             };
+  
+  var calendarEventHook = new CalendarEventHook();
+  var calendarEventManager = new EntityManagement(urls, 'calendar_event',
+     <%= calendar_event_page_size %>, calendarEventHook, {prefix: '/admin',parent_filtered:true});
+ 
+ });

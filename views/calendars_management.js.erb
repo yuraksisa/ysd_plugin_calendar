@@ -1,0 +1,71 @@
+ require(['jquery', 'YSDEntityManagement', 'YSDForms', 'jquery.validate'], function($, EntityManagement, YSDForms) {
+
+ 
+  function CalendarHook() {
+ 	   
+    this.entityKey = function(entity) {
+      return entity.id;
+    }
+
+    this.onEdit = function(entity) {
+      $('#name').focus();  	
+      this.configForm(entity);
+    };
+  
+    this.onNew = function() {
+  	  $('#name').focus();
+  	  this.configForm(null);
+    }
+    
+    this.onRenderEntities = function(entities) {
+      $('.elements-search').show();	
+    }
+    
+    this.configForm = function(entity) {
+             
+         this.configValidation();
+    	
+    }
+    
+    this.configValidation = function() {
+           	 
+       	 $('#calendar_management_form').validate({
+       	  	
+            submitHandler: function(form) 
+            {
+               return false;
+            },
+                 	        	   
+       	    rules : { // rules
+       	       'name': {
+       	         required: true	
+       	       }
+       	    },
+       	    
+       	    messages : { // messages
+       	       'name': {
+       	       	 required : '<%=t.calendar_management.form.name_required%>'
+       	       }
+       	    }
+       	    
+       	  }
+       	 );
+    	
+    	
+    }
+  	
+  };
+  
+  var urls = { 
+  	           query_url  : '/api/calendars',
+    	         create_url : '/api/calendar',
+  	           update_url : '/api/calendar',
+  	           delete_url : '/api/calendar',
+  	           get_url    : '/api/calendar'
+  	         };
+  
+  var calendarHook = new CalendarHook();
+  var calendarManager = new EntityManagement(urls, 'calendars', 
+      <%= calendar_page_size %>, calendarHook, {prefix: '/admin'});
+ 
+ });

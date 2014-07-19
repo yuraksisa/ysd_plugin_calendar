@@ -1,0 +1,85 @@
+ require(['jquery', 'YSDEntityManagement', 'YSDForms', 'jquery.validate'], function($, EntityManagement, YSDForms) {
+
+ 
+  function VariableHook() {
+     
+    this.entityKey = function(entity) {
+      return entity.name;
+    }
+
+    this.onEdit = function(entity) {
+      $('#name').attr('readonly', true);
+      $('#description').focus();    
+      this.configForm(entity);
+    };
+  
+    this.onNew = function() {
+      $('#name').focus();
+      this.configForm(null);
+    }
+    
+    this.onRenderEntities = function(entities) {
+      $('.elements-search').show(); 
+    }
+    
+    this.configForm = function(entity) {
+             
+         // Limit the text area length
+         YSDForms.limit_text_area_content_size(document.getElementById('description'), 256, 
+            function (content_remain) {
+              document.getElementById('description_length').innerHTML = '<strong>' + content_remain + '</strong>';
+            }
+         );    
+
+         // Limit the text area length
+         YSDForms.limit_text_area_content_size(document.getElementById('value'), 256, 
+            function (content_remain) {
+              document.getElementById('value_length').innerHTML = '<strong>' + content_remain + '</strong>';
+            }
+         ); 
+         
+         this.configValidation();
+      
+    }
+    
+    this.configValidation = function() {
+             
+         $('#variable_management_form').validate({
+            
+            submitHandler: function(form) 
+            {
+               return false;
+            },
+                               
+            rules : { // rules
+               'name': {
+                 required: true 
+               }
+            },
+            
+            messages : { // messages
+               'name': {
+                 required : '<%=t.variable_management.form.name_required%>'
+               }
+            }
+            
+          }
+         );
+      
+      
+    }
+    
+  };
+  
+  var urls = { 
+               query_url  : '/variables',
+             create_url : '/variable',
+               update_url : '/variable',
+               delete_url : '/variable',
+               get_url    : '/variable'
+             };
+  
+  var variableHook = new VariableHook();
+  var variablesManager = new EntityManagement(urls, 'configuration variable', <%= variable_page_size %>, variableHook);
+ 
+ });

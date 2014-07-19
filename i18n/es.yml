@@ -1,0 +1,32 @@
+system_admin_menu:
+  apps:
+    calendar_menu:
+      title: Calendarios
+      calendars: Calendarios
+calendar_management:
+  title: Calendarios
+  description: Calendarios
+  table:
+    id: Id
+    name: Nombre
+    description: Descripción
+    events: Eventos
+  form:
+    name: Nombre
+    description: Descripción
+    name_required: Nombre obligatorio
+event_management:
+  title: Eventos
+  description: Eventos
+  table:
+    id: id
+    from: Desde
+    to: Hasta
+    type: Tipo
+  form:
+    from: Desde
+    to: Hasta
+    type: Tipo
+    description: Descripción
+    from_required: Desde obligatorio
+    to_required: Hasta obligatorio

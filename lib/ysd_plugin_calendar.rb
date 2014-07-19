@@ -1,0 +1,9 @@
+require 'sinatra/ysd_sinatra_calendar_management'
+require 'sinatra/ysd_sinatra_calendar_management_rest_api'
+require 'sinatra/ysd_sinatra_event_type_management'
+require 'sinatra/ysd_sinatra_event_type_management_rest_api'
+require 'sinatra/ysd_sinatra_event_management'
+require 'sinatra/ysd_sinatra_event_management_rest_api'
+
+require 'ysd_plugin_calendar_extension'
+require 'ysd_plugin_calendar_init'

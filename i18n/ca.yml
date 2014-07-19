@@ -1,0 +1,32 @@
+system_admin_menu:
+  apps:
+    calendar_menu:
+      title: Calendaris
+      calendars: Calendaris
+calendar_management:
+  title: Calendaris
+  description: Calendaris
+  table:
+    id: Id
+    name: Nom
+    description: Descripció
+    events: Events
+  form:
+    name: Nom
+    description: Descripció
+    name_required: Nom obligatori
+event_management:
+  title: Events
+  description: Events
+  table:
+    id: id
+    from: Des de
+    to: Find
+    type: Tipus
+  form:
+    from: Des de
+    to: Fins
+    type: Tipus
+    description: Descripció
+    from_required: Des de obligatori
+    to_required: Fins obligatori
