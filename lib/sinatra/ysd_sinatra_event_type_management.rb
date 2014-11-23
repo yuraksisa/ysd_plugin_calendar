@@ -6,7 +6,7 @@ module Sinatra
         #
         # Event type management
         #
-        app.get '/admin/event-types/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
+        app.get '/admin/calendar/event-types/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
 
           load_em_page :calendars_management, nil, false
 

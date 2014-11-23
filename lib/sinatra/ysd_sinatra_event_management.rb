@@ -6,7 +6,7 @@ module Sinatra
         #
         # Events of a calendar page
         #
-        app.get '/admin/events/:calendar_id/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
+        app.get '/admin/calendar/events/:calendar_id/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
 
           locals = {:calendar_id => params[:calendar_id], :calendar_event_page_size => 20}
 

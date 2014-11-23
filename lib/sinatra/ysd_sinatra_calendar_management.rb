@@ -12,7 +12,7 @@ module Sinatra
         #
         # Calendars page
         #
-        app.get '/admin/calendars/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
+        app.get '/admin/calendar/calendars/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
 
           locals = {:calendar_page_size => 20}
           load_em_page :calendars_management, nil, false, :locals => locals

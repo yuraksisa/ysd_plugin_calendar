@@ -36,7 +36,7 @@ module Huasi
                     },
                     {:path => '/apps/calendar/calendars',              
                      :options => {:title => app.t.system_admin_menu.apps.calendar_menu.calendars,
-                                  :link_route => "/admin/calendars",
+                                  :link_route => "/admin/calendar/calendars",
                                   :description => 'Calendars management',
                                   :module => :booking,
                                   :weight => 7}
@@ -54,34 +54,7 @@ module Huasi
     #
     def routes(context={})
     
-      routes = [{:path => '/reserva',
-                  :regular_expression => /^\/reserva/, 
-                 :title => 'Reserva' , 
-                 :description => 'Formulario para realizar reserva',
-                 :fit => 1,
-                 :module => :booking},
-               {:path => '/apps/bookings/booking-categories',
-                  :regular_expression => /^\/admin\/booking-categories/,
-                  :title => 'Booking categories',
-                  :fit => 1,
-                  :module => :booking}, 
-                {:path => '/apps/bookings/booking-items',
-                  :regular_expression => /^\/admin\/booking-items/,
-                  :title => 'Booking items',
-                  :fit => 1,
-                  :module => :booking},                 
-                {:path => '/apps/bookings/bookings',
-                 :regular_expression => /^\/admin\/bookings/, 
-                 :title => 'Bookings', 
-                 :description => 'Booking management',
-                 :fit => 1,
-                 :module => :booking },   
-                {:path => '/apps/bookings/scheduler',
-                 :regular_expression => /^\/admin\/bookings\/scheduler/, 
-                 :title => 'Scheduler', 
-                 :description => 'Booking scheduler',
-                 :fit => 1,
-                 :module => :booking }                                                  
+      routes = [                                            
                ]
         
     end
