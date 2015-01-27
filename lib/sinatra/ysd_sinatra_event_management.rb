@@ -8,9 +8,18 @@ module Sinatra
         #
         app.get '/admin/calendar/events/:calendar_id/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
 
-          locals = {:calendar_id => params[:calendar_id], :calendar_event_page_size => 20}
+          today = DateTime.now
+          year = params[:year] || today.year
+          month = params[:month] || (today.month - 1)
 
-          load_em_page :events_management, nil, false, {:locals => locals}
+          if calendar = ::Yito::Model::Calendar::Calendar.get(params[:calendar_id])
+            locals = {:calendar => calendar,
+                      :year => year, 
+                      :month => month}
+            load_page :events_management, {:locals => locals}
+          else
+            status 401
+          end
 
         end
 

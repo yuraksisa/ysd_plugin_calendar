@@ -33,7 +33,46 @@ module Sinatra
         #
         app.get "/api/events/:calendar_id" do
 
-          events = ::Yito::Model::Calendar::Event.all({:calendar => {:id => params[:calendar_id]}})
+          if params.has_key?('start') and params.has_key?('end')
+            from = Time.at(params['start'].to_i)
+            to = Time.at(params['end'].to_i)
+            condition = condition = Conditions::JoinComparison.new('$and',
+              [Conditions::Comparison.new(:calendar_id, '$eq', params[:calendar_id]),
+               Conditions::JoinComparison.new('$or', 
+                  [Conditions::JoinComparison.new('$and', 
+                     [Conditions::Comparison.new(:from,'$lte', from),
+                      Conditions::Comparison.new(:to,'$gte', from)
+                     ]),
+                   Conditions::JoinComparison.new('$and',
+                     [Conditions::Comparison.new(:from,'$lte', to),
+                      Conditions::Comparison.new(:to,'$gte', to)
+                     ]),
+                   Conditions::JoinComparison.new('$and',
+                     [Conditions::Comparison.new(:from,'$eq', from),
+                      Conditions::Comparison.new(:to,'$eq', to)
+                     ]),
+                   Conditions::JoinComparison.new('$and',
+                     [Conditions::Comparison.new(:from, '$gte', from),
+                      Conditions::Comparison.new(:to, '$lte', to)])               
+                  ]
+               ),
+              ]
+            )
+            events = condition.build_datamapper(::Yito::Model::Calendar::Event).map do |event|
+            {:id => event.id,
+             :title => "#{event.event_type.description} #{event.description.empty? ? '': ' - ' + event.description}",
+             :start => event.from,
+             :end => event.to,
+             :editable => false,
+             :backgroundColor => event.event_type.name == 'not_available' ? 'rgb(255, 0, 0)' : 
+               event.event_type.name == 'payment_enabled' ? 'rgb(21, 202, 9)' : 
+               evnet.event_type.name == 'activity' ? 'rgb(20, 22, 207)' : 'rgb(0,0,0)' ,
+             :textColor => 'white'}
+          end
+
+          else
+            events = ::Yito::Model::Calendar::Event.all({:calendar => {:id => params[:calendar_id]}})
+          end
 
           status 200
           content_type :json

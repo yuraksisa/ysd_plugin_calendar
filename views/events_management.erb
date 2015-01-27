@@ -1,54 +1,34 @@
-<%= include('entity-management') %>
+<h2 class="entity-title"><%=t.event_management.title%></h2>
 
-<!-- Renders the element description -->
-
-<script type="text/tmpl" id="elements_title">
-  <h2 class="entity-title"><%=t.event_management.title%></h2>
-</script>
-
-<script type="text/tmpl" id="elements_description">
-    <%= t.event_management.description %>
-</script>
-
-<!-- Renders the elements container -->
-<script type="text/tmpl" id="elements_container_template">
-
-  <table id="elements_table" class="table">
-     <thead class="table-header">
-       <tr>
-         <th class="table-header-title" scope="col" style="width:10%"><%= t.event_management.table.id %></th>
-         <th class="table-header-title" scope="col" style="width:20%"><%= t.event_management.table.from %></th>
-         <th class="table-header-title" scope="col" style="width:20%"><%= t.event_management.table.to %></th>
-         <th class="table-header-title" scope="col" style="width:50%"><%= t.event_management.table.type %></th>        
-       </tr>
-     </thead>
-     <tbody id="elements_tbody" class="table-tbody">             
-     </tbody>
-  </table>
-
-</script>
-
-<!-- Renders one element in the elements list view -->
-        
-<script type="text/tmpl" id="elements_list_template">
-
-    <tr class="table-row element-navigation-detail" rel="<%%= index %>" id="element_row_<%%=index%>">
-      <td class="table-cell"><%%= entity.id %></td>
-      <td class="table-cell"><%%= self.formatDate(entity.from,'dd.MM.yyyy') %></td>
-      <td class="table-cell"><%%= self.formatDate(entity.to,'dd.MM.yyyy') %></td>
-      <td class="table-cell"><%%= entity.event_type.name %></td>
-    </tr>
-
-</script>
-
-<!-- Renders one element in the element view (full detailed) -->
-
-<script type="text/tmpl" id="element_template">
-
-
-</script>
-
-<!-- Renders the form to edit an element -->
+<div id="page_wrapper">
+  <div class="container_12 top-margin-1line">
+    <div class="grid_7">
+      <div id="calendar" class="all-space"></div>
+    </div>
+    <div class="grid_5">
+      <div class="left-margin">
+        <div class="guiblock">
+      	  <div class="formrow">
+            <span class="entity-fieldlabel more_contrast_text">Calendario:</span>
+            <span class="entity-fieldvalue"><%=calendar.name%></span>
+          </div>
+      	  <div class="formrow">
+            <span class="entity-fieldlabel more_contrast_text">Descripción:</span>
+            <span class="entity-fieldvalue"><%=calendar.description%></span>
+          </div>        
+        </div>
+        <div id="action_empty" class="bottom-margin-1line">
+           <button class="form-button new-entity-button action-button entity-management-button" 
+                   style="display:block; margin: 0 auto; width: 100%; background-color: green" title="new">
+         	  Nuevo evento
+           </button>
+        </div>
+        <div id="action_form" class="elements-list all-space" style="display:none">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/tmpl" id="element_template_form">
               
@@ -60,7 +40,7 @@
           <input type="hidden" id="id" name="id" value="<%%=entity.id%>"/>
           <%% } %>
 
-          <input type="hidden" name="calendar[id]" id="calendar[id]" value="<%=calendar_id%>"/>
+          <input type="hidden" name="calendar[id]" id="calendar[id]" value="<%=calendar.id%>"/>
 
           <div class="formrow">
              <label for="from" class="fieldtitle"><%=t.event_management.form.from%><span class="mandatoryfield">*</span></label> 
@@ -77,7 +57,7 @@
 
           <div class="formrow">
             <label for="description" class="fieldtitle"><%= t.event_management.form.description %></label>
-            <textarea name="description" id="description" class="fieldcontrol" rows="5"><%% if (entity) { %><%%=entity.description%><%%}%></textarea>
+            <textarea name="description" id="description" class="fieldcontrol" rows="2"><%% if (entity) { %><%%=entity.description%><%%}%></textarea>
           </div>
 
         </div>
@@ -85,10 +65,13 @@
         <div class="bottom-navigation-bar navigation-bar">
              <div class="navigation-bar-crud-buttons">
                 <%% if (entity) { %>
-                  <input type="submit" class="update-entity-button action-button entity-management-button" value="<%=t.entitymanagement.update%>"/>
+                  <button type="button" class="form-button new-entity-button action-button entity-management-button" 
+                      style="background-color: green" title="new">Nuevo evento</button>                	
+                  <button type="button" class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>                     	
+                  <button type="button" class="form-button update-entity-button action-button entity-management-button" title="<%=t.entitymanagement.update%>"><%=t.entitymanagement.update%></button>                  
                 <%% } 
                    else { %>
-                  <input type="submit" class="create-entity-button action-button entity-management-button" value="<%=t.entitymanagement.create%>"/>
+                  <input type="button" class="create-entity-button action-button entity-management-button" value="<%=t.entitymanagement.create%>"/>
                 <%% } %>
              </div>
         </div>
@@ -97,4 +80,3 @@
      
 
 </script>
-
