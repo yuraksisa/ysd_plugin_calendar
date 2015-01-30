@@ -14,8 +14,8 @@ module Sinatra
           app.post path do
 
             page = params[:page].to_i || 1
-            limit = settings.contents_page_size
-            offset = (page-1) * settings.contents_page_size
+            limit = 20
+            offset = (page-1) * 20
             
             conditions = {:calendar => {:id => params[:calendar_id]}}
             data  = ::Yito::Model::Calendar::Event.all(:conditions => conditions, :limit => limit, :offset => offset)
