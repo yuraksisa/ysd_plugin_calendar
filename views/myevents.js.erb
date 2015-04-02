@@ -1,0 +1,335 @@
+require(['jquery', 'YSDEntityManagement', 'YSDForms', 
+          'YSDRemoteDataSource', 'YSDSelectSelector',
+          'ysdtemplate', 'YSDjson2', 'jquery.ui', 'jquery.ui.datepicker-es',
+          'jquery.formparams', 'jquery.validate'], 
+          function($, EntityManagement, YSDForms,
+            RemoteDataSource, SelectSelector, tmpl) {
+
+
+  eventsManagementModel = {
+
+    event: null,
+
+    loadEvent: function(id) {
+
+       var self = this;
+       $.ajax({
+               type: 'GET',
+               url : '/api/event/'+id,
+               contentType: 'application/json; charset=utf-8',
+               dataType : 'json',
+               success: function(data, textStatus, jqXHR) {
+                 self.event = data;
+                 eventsManagementView.update('event_loaded');
+               },
+               error: function(data, textStatus, jqXHR) {
+                 alert('Error loading event');
+               }               
+          });
+
+    },
+
+    createEvent: function(data) {
+
+       var self = this;
+
+  	   var the_data = encodeURIComponent(JSON.stringify(data));
+
+       $.ajax({
+               type: 'POST',
+               url : '/api/event',
+               contentType: 'application/json; charset=utf-8',
+               dataType : 'json',
+  	  	       data : the_data,                   
+               success: function(data, textStatus, jqXHR) {
+                 self.event = data;
+                 eventsManagementView.update('event_created');
+               },
+               error: function(data, textStatus, jqXHR) {
+                 alert('Error creating event');
+               }               
+          });
+
+    },
+
+    updateEvent: function(data) {
+
+       var self = this;
+
+  	   var the_data = encodeURIComponent(JSON.stringify(data));
+
+       $.ajax({
+               type: 'PUT',
+               url : '/api/event',
+               contentType: 'application/json; charset=utf-8',
+               dataType : 'json',
+  	  	       data : the_data,                   
+               success: function(data, textStatus, jqXHR) {
+                 self.event = data;
+                 eventsManagementView.update('event_updated');
+               },
+               error: function(data, textStatus, jqXHR) {
+                 alert('Error updating event');
+               }               
+          });
+
+    },
+
+    deleteEvent: function(data) {
+
+       var self = this;
+
+       var the_data = encodeURIComponent(JSON.stringify(data));
+
+       $.ajax({
+               type: 'DELETE',
+               url : '/api/event',
+               contentType: 'application/json; charset=utf-8',
+               dataType : 'json',
+               data : the_data,                   
+               success: function(data, textStatus, jqXHR) {
+                 self.event = data;
+                 eventsManagementView.update('event_deleted');
+               },
+               error: function(data, textStatus, jqXHR) {
+                 alert('Error deleting event');
+               }               
+          });
+
+    }
+
+
+  };
+
+  eventsManagementController = {
+
+    buttonNewEventClick: function() {
+
+      eventsManagementModel.event = null;
+      eventsManagementView.update('create');
+
+    },
+
+    buttonCreateEventClick: function(button) {
+
+      if ($('#calendar_event_management_form').valid()) {
+        eventsManagementModel.createEvent($(button.form).formParams(true));
+      }
+
+    },
+
+    buttonUpdateEventClick: function(button) {
+
+      if ($('#calendar_event_management_form').valid()) {
+        eventsManagementModel.updateEvent($(button.form).formParams(true));
+      }
+    
+    },
+
+    buttonDeleteEventClick: function(button) {
+
+      eventsManagementView.ask_for_confirmation('Confirmar', 
+            '¿Quieres borrar el evento?',
+            function(){                                      
+              eventsManagementModel.deleteEvent($(button.form).formParams(true));
+            });
+
+    },
+
+    buttonNavigationClick: function() {
+
+      eventsManagementView.clearForm();
+
+    }
+
+  };
+
+  eventsManagementView = {
+
+    init: function() {
+
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month'
+        },
+        year: <%=year%>,
+        month: <%=month%>,
+        editable: false,
+        lang: '<%=session[:locale]%>',
+        events: '/api/events/<%=calendar.id%>',
+        firstDay: 1,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+        dayNames: ['Domingo', 'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+        dayNamesShort: ['Domingo', 'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+        buttonText: {
+           today: 'hoy',
+           month: 'mes',
+           week: 'semana',
+           day: 'día'
+        },
+		    eventClick: function(event) {
+           if (event.id) {
+           	 eventsManagementModel.loadEvent(event.id);
+           	 return false;
+           }
+        }        
+      });
+
+      $('.new-entity-button').bind('click', function() {
+        eventsManagementController.buttonNewEventClick();
+      });
+
+      $('.fc-button-prev span').click(function(){
+        eventsManagementController.buttonNavigationClick();
+      });
+
+      $('.fc-button-next span').click(function(){
+        eventsManagementController.buttonNavigationClick();
+      });      
+
+    },
+
+    update: function(status) {
+
+      switch (status) {
+      	 case 'create':
+      	   $('#action_empty').hide();
+      	   $('#action_form').html(tmpl('element_template_form', {entity: null}));
+      	   $('#action_form').show();   
+      	   this.configureForm();   	 
+      	   break;
+      	 case 'event_created':
+      	   this.clearForm();    	 
+      	   $('#calendar').fullCalendar('refetchEvents');
+      	   break;
+      	 case 'event_loaded': 
+      	   $('#action_empty').hide();
+      	   $('#action_form').html(tmpl('element_template_form', {entity: eventsManagementModel.event}));
+      	   $('#action_form').show();
+      	   this.configureForm();
+      	   break;
+      	 case 'event_updated': 
+           this.clearForm();
+       	   $('#calendar').fullCalendar('refetchEvents');
+      	   break;
+         case 'event_deleted': 
+           this.clearForm();
+           $('#calendar').fullCalendar('refetchEvents');
+           break;           
+      }
+
+    },
+
+    configureForm: function() {
+
+         var locale = $.datepicker.regional["<%=session[:locale] || 'es'%>"];             
+         $('#from').datepicker(
+                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:1, 
+                  dateFormat: 'dd/mm/yy'},
+                  locale);
+         $('#to').datepicker(
+                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:1, 
+                  dateFormat: 'dd/mm/yy'},
+                  locale);
+
+         var entity = eventsManagementModel.event;
+
+         if (entity != null) {
+           $('#from').datepicker('setDate', entity.from);
+           $('#to').datepicker('setDate', entity.to);
+         }
+
+         var eventTypeDataSource = new RemoteDataSource('/api/event-types',{'id':'id','description':'name'});
+         var eventTypeValue = (entity && entity.event_type_id)?entity.event_type_id:null;
+         var eventTypeSelector = new SelectSelector('event_type[id]', eventTypeDataSource, eventTypeValue); 
+
+         $('.create-entity-button').bind('click', function() {
+         	eventsManagementController.buttonCreateEventClick(this);
+         });
+
+         $('.update-entity-button').bind('click', function() {
+         	eventsManagementController.buttonUpdateEventClick(this);
+         })
+
+         $('.delete-entity-button').bind('click', function(){
+          eventsManagementController.buttonDeleteEventClick(this);        
+         });
+
+         $('.new-entity-button').bind('click', function() {
+            eventsManagementController.buttonNewEventClick();
+         });
+
+         this.configValidation();
+
+    },
+
+    configValidation: function() {
+             
+         $('#calendar_event_management_form').validate({
+            
+            submitHandler: function(form) 
+            {
+               return false;
+            },
+                               
+            rules : { // rules
+               'from': {
+                 required: true 
+               },
+               'to': {
+                 required: true 
+               }
+            },
+            
+            messages : { // messages
+               'from': {
+                 required : '<%=t.event_management.form.from_required%>'
+               },              
+               'to': {
+                 required : '<%=t.event_management.form.to_required%>'
+               }
+            }
+            
+          }
+         );
+    },
+
+    clearForm: function() {
+  	   $('#action_form').hide();       	 
+   	   $('#action_empty').show(); 
+    },
+
+    ask_for_confirmation: function(title, message, callback) { /* Asks for confirmation */
+    
+        var response = false;
+    
+        $("<div title='" + title + "'>" + message + "</div>").dialog( { height: 250, modal: true,        
+                buttons: {
+                  Ok: function() {
+             response = true;
+             $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+             response = false;  
+             $( this ).dialog( "close" );
+          }
+        },
+        close : function(event, ui) {                   
+
+                  if (response) {
+                    callback(); 
+                  }
+          
+        }
+              });
+    } 
+
+
+  };
+
+  eventsManagementView.init();
+
+});
