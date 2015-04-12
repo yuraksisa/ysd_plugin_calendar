@@ -1,0 +1,139 @@
+<script type="text/javascript">
+
+  require(['jquery','YSDEntityManagementComplementHooks', 'YSDTimeControl'], 
+  	      function($, EntityManagementComplementHooks, TimeControl){
+
+    TimetablePlugin = function() {
+
+      this.onEdit = function(entity) {
+        this.configForm(entity);
+      }
+
+      this.onNew = function() {
+        this.configForm(null);
+      }
+
+      this.configForm = function(entity) {
+        
+        var sundayFrom = new TimeControl(
+          document.getElementById('timetable_sunday_from_hours'),
+          document.getElementById('timetable_sunday_from_minutes'),
+          document.getElementById('timetable_sunday_from'));
+        if (entity) {
+          sundayFrom.setTime(entity.timetable_sunday_from);
+        }
+
+        var sundayTo = new TimeControl(
+          document.getElementById('timetable_sunday_to_hours'),
+          document.getElementById('timetable_sunday_to_minutes'),
+          document.getElementById('timetable_sunday_to'));
+        if (entity) {
+          sundayTo.setTime(entity.timetable_sunday_to);
+        }
+
+        var mondayFrom = new TimeControl(
+          document.getElementById('timetable_monday_from_hours'),
+          document.getElementById('timetable_monday_from_minutes'),
+          document.getElementById('timetable_monday_from'));
+        if (entity) {
+          mondayFrom.setTime(entity.timetable_monday_from);
+        }
+
+        var mondayTo = new TimeControl(
+          document.getElementById('timetable_monday_to_hours'),
+          document.getElementById('timetable_monday_to_minutes'),
+          document.getElementById('timetable_monday_to'));
+        if (entity) {
+          mondayTo.setTime(entity.timetable_monday_to);
+        }
+
+        var tuesdayFrom = new TimeControl(
+          document.getElementById('timetable_tuesday_from_hours'),
+          document.getElementById('timetable_tuesday_from_minutes'),
+          document.getElementById('timetable_tuesday_from'));
+        if (entity) {
+          tuesdayFrom.setTime(entity.timetable_tuesday_from);
+        }
+
+        var tuesdayTo = new TimeControl(
+          document.getElementById('timetable_tuesday_to_hours'),
+          document.getElementById('timetable_tuesday_to_minutes'),
+          document.getElementById('timetable_tuesday_to'));
+        if (entity) {
+          tuesdayTo.setTime(entity.timetable_tuesday_to);
+        }
+
+        var wednesdayFrom = new TimeControl(
+          document.getElementById('timetable_wednesday_from_hours'),
+          document.getElementById('timetable_wednesday_from_minutes'),
+          document.getElementById('timetable_wednesday_from'));
+        if (entity) {
+          wednesdayFrom.setTime(entity.timetable_wednesday_from);
+        }
+
+        var wednesdayTo = new TimeControl(
+          document.getElementById('timetable_wednesday_to_hours'),
+          document.getElementById('timetable_wednesday_to_minutes'),
+          document.getElementById('timetable_wednesday_to'));
+        if (entity) {
+          wednesdayTo.setTime(entity.timetable_wednesday_to);
+        }
+
+        var thursdayFrom = new TimeControl(
+          document.getElementById('timetable_thursday_from_hours'),
+          document.getElementById('timetable_thursday_from_minutes'),
+          document.getElementById('timetable_thursday_from'));
+        if (entity) {
+          thursdayFrom.setTime(entity.timetable_thursday_from);
+        }
+
+        var thursdayTo = new TimeControl(
+          document.getElementById('timetable_thursday_to_hours'),
+          document.getElementById('timetable_thursday_to_minutes'),
+          document.getElementById('timetable_thursday_to'));                 
+        if (entity) {
+          thursdayTo.setTime(entity.timetable_thursday_to);
+        }
+
+        var fridayFrom = new TimeControl(
+          document.getElementById('timetable_friday_from_hours'),
+          document.getElementById('timetable_friday_from_minutes'),
+          document.getElementById('timetable_friday_from'));
+        if (entity) {
+          fridayFrom.setTime(entity.timetable_friday_from);
+        }
+
+        var fridayTo = new TimeControl(
+          document.getElementById('timetable_friday_to_hours'),
+          document.getElementById('timetable_friday_to_minutes'),
+          document.getElementById('timetable_friday_to')); 
+        if (entity) {
+          fridayTo.setTime(entity.timetable_friday_to);
+        }
+
+        var saturdayFrom = new TimeControl(
+          document.getElementById('timetable_saturday_from_hours'),
+          document.getElementById('timetable_saturday_from_minutes'),
+          document.getElementById('timetable_saturday_from'));
+        if (entity) {
+          saturdayFrom.setTime(entity.timetable_saturday_from);
+        }
+
+        var saturdayTo = new TimeControl(
+          document.getElementById('timetable_saturday_to_hours'),
+          document.getElementById('timetable_saturday_to_minutes'),
+          document.getElementById('timetable_saturday_to')); 
+        if (entity) {
+          saturdayTo.setTime(entity.timetable_saturday_to);
+        }
+
+      }
+
+    }
+    
+    timetablePlugin = new TimetablePlugin();
+    EntityManagementComplementHooks.register(timetablePlugin);
+
+  });
+
+</script>

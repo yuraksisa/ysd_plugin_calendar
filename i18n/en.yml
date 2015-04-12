@@ -3,6 +3,14 @@ system_admin_menu:
     calendar_menu:
       title: Calendars
       calendars: Calendars
+days:
+  sunday: Sunday
+  monday: Monday
+  tuesday: Tuesday
+  wednesday: Wednesday
+  thursday: Thursday
+  friday: Friday
+  saturday: Saturday      
 calendar_management:
   title: Calendars
   description: Calendars
@@ -30,3 +38,17 @@ event_management:
     description: Description
     from_required: From mandatory
     to_required: To mandatory
+timetable_management:
+  title: Timetables
+  description: Timetables
+  table:
+    id: Id
+    name: Name
+    description: Description
+  form:
+    name: Name
+    description: Description
+    name_required: Name is required    
+guiblock:
+  timetable:
+    description: Timetable    

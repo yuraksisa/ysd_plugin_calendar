@@ -4,6 +4,10 @@ require 'sinatra/ysd_sinatra_event_type_management'
 require 'sinatra/ysd_sinatra_event_type_management_rest_api'
 require 'sinatra/ysd_sinatra_event_management'
 require 'sinatra/ysd_sinatra_event_management_rest_api'
+require 'sinatra/ysd_sinatra_timetable_management'
+require 'sinatra/ysd_sinatra_timetable_management_rest_api'
+
+require 'guiblock/ysd_guiblock_timetable_fieldset'
 
 require 'ysd_plugin_calendar_extension'
 require 'ysd_plugin_calendar_init'

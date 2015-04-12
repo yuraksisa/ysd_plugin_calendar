@@ -1,0 +1,75 @@
+ require(['jquery', 'YSDEntityManagement', "YSDEntityManagementComplementHooks",
+     'YSDForms', 'jquery.validate'], 
+     function($, EntityManagement, EntityManagementComplementHooks, YSDForms) {
+
+ 
+  function TimetableHook() {
+ 	   
+    this.entityKey = function(entity) {
+      return entity.id;
+    }
+
+    this.onEdit = function(entity) {
+      $('#name').focus();  	
+      this.configForm(entity);
+    };
+  
+    this.onNew = function() {
+  	  $('#name').focus();
+  	  this.configForm(null);
+    }
+    
+    this.onRenderEntities = function(entities) {
+      $('.elements-search').show();	
+    }
+    
+    this.configForm = function(entity) {
+         this.configValidation();
+    }
+    
+    this.configValidation = function() {
+           	 
+       	 $('#timetable_management_form').validate({
+       	  	
+            submitHandler: function(form) 
+            {
+               return false;
+            },
+                 	        	   
+       	    rules : { // rules
+       	       'name': {
+       	         required: true	
+       	       }
+       	    },
+       	    
+       	    messages : { // messages
+       	       'name': {
+       	       	 required : '<%=t.calendar_management.form.name_required%>'
+       	       }
+       	    }
+       	    
+       	  }
+       	 );
+    	
+    	
+    }
+  	
+  };
+  
+  var urls = { 
+  	           query_url  : '/api/timetables',
+    	         create_url : '/api/timetable',
+  	           update_url : '/api/timetable',
+  	           delete_url : '/api/timetable',
+  	           get_url    : '/api/timetable'
+  	         };
+  
+  var timetableHook = new TimetableHook();
+  var hooks = [timetableHook];
+  hooks = hooks.concat(EntityManagementComplementHooks.complements);
+
+
+  var timetableManager = new EntityManagement(urls, 'timetables', 
+      <%= timetable_page_size %>, hooks, {prefix: '/admin/calendar'});
+ 
+ });

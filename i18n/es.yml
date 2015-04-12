@@ -3,6 +3,14 @@ system_admin_menu:
     calendar_menu:
       title: Calendarios
       calendars: Calendarios
+days:
+  sunday: Domingo
+  monday: Lunes
+  tuesday: Martes
+  wednesday: Miércoles
+  thursday: Jueves
+  friday: Viernes
+  saturday: Sábado
 calendar_management:
   title: Calendarios
   description: Calendarios
@@ -30,3 +38,18 @@ event_management:
     description: Descripción
     from_required: Desde obligatorio
     to_required: Hasta obligatorio
+timetable_management:
+  title: Horarios
+  description: Horarios
+  table:
+    id: Id
+    name: Nombre
+    description: Descripción
+  form:
+    name: Nombre
+    description: Descripción
+    name_required: Nombre obligatorio    
+guiblock:
+  timetable:
+    description: Horario
+    to: a

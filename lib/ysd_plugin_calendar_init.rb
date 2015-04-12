@@ -14,5 +14,7 @@ Plugins::SinatraAppPlugin.register :calendar do
    sinatra_extension Sinatra::YitoExtension::EventTypeManagementRESTApi   
    sinatra_extension Sinatra::YitoExtension::EventManagement
    sinatra_extension Sinatra::YitoExtension::EventManagementRESTApi
+   sinatra_extension Sinatra::YitoExtension::TimetableManagement
+   sinatra_extension Sinatra::YitoExtension::TimetableManagementRESTApi
 
 end

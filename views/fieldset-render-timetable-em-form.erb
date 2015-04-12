@@ -1,0 +1,86 @@
+            <div id="timetable_form" class="guiblock">           
+              <div class="formrow">
+                <div class="grid_2">
+                <input type="checkbox" name="timetable_sunday" value="true" <%% if (entity && entity.timetable_sunday){%>checked<%%}%>><%=t.days.sunday%></input>
+                </div>
+                <select id="timetable_sunday_from_hours" name="timetable_sunday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_sunday_from_minutes" name="timetable_sunday_from_minutes"></select>
+                <input type="hidden" id="timetable_sunday_from" name="timetable_sunday_from"  <%% if (entity) { %>value="<%%=entity.timetable_sunday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_sunday_to_hours" name="timetable_sunday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_sunday_to_minutes" name="timetable_sunday_to_minutes"></select>
+                <input type="hidden" id="timetable_sunday_to" name="timetable_sunday_to" <%% if (entity) { %>value="<%%=entity.timetable_sunday_to%>"<%% } %>/>
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                <input type="checkbox" name="timetable_monday" value="true" <%% if (entity && entity.timetable_monday){%>checked<%%}%>><%=t.days.monday%></input>
+                </div>
+                <select id="timetable_monday_from_hours" name="timetable_monday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_monday_from_minutes" name="timetable_monday_from_minutes"></select>
+                <input type="hidden" id="timetable_monday_from" name="timetable_monday_from"  <%% if (entity) { %>value="<%%=entity.timetable_monday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_monday_to_hours" name="timetable_monday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_monday_to_minutes" name="timetable_monday_to_minutes"></select>
+                <input type="hidden" id="timetable_monday_to" name="timetable_monday_to" <%% if (entity) { %>value="<%%=entity.timetable_monday_to%>"<%% } %>/>                
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                  <input type="checkbox" name="timetable_tuesday" value="true" <%% if (entity && entity.timetable_tuesday){%>checked<%%}%>><%=t.days.tuesday%></input>
+                </div>
+                <select id="timetable_tuesday_from_hours" name="timetable_tuesday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_tuesday_from_minutes" name="timetable_tuesday_from_minutes"></select>
+                <input type="hidden" id="timetable_tuesday_from" name="timetable_tuesday_from"  <%% if (entity) { %>value="<%%=entity.timetable_tuesday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_tuesday_to_hours" name="timetable_tuesday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_tuesday_to_minutes" name="timetable_tuesday_to_minutes"></select>
+                <input type="hidden" id="timetable_tuesday_to" name="timetable_tuesday_to" <%% if (entity) { %>value="<%%=entity.timetable_tuesday_to%>"<%% } %>/>                
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                  <input type="checkbox" name="timetable_wednesday" value="true" <%% if (entity && entity.timetable_wednesday){%>checked<%%}%>><%=t.days.wednesday%></input>
+                </div>
+                <select id="timetable_wednesday_from_hours" name="timetable_wednesday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_wednesday_from_minutes" name="timetable_wednesday_from_minutes"></select>
+                <input type="hidden" id="timetable_wednesday_from" name="timetable_wednesday_from"  <%% if (entity) { %>value="<%%=entity.timetable_wednesday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_wednesday_to_hours" name="timetable_wednesday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_wednesday_to_minutes" name="timetable_wednesday_to_minutes"></select>
+                <input type="hidden" id="timetable_wednesday_to" name="timetable_wednesday_to" <%% if (entity) { %>value="<%%=entity.timetable_wednesday_to%>"<%% } %>/>                
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                  <input type="checkbox" name="timetable_thursday" value="true" <%% if (entity && entity.timetable_thursday){%>checked<%%}%>><%=t.days.thursday%></input>
+                </div>
+                <select id="timetable_thursday_from_hours" name="timetable_thursday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_thursday_from_minutes" name="timetable_thursday_from_minutes"></select>
+                <input type="hidden" id="timetable_thursday_from" name="timetable_thursday_from"  <%% if (entity) { %>value="<%%=entity.timetable_thursday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_thursday_to_hours" name="timetable_thursday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_thursday_to_minutes" name="timetable_thursday_to_minutes"></select>
+                <input type="hidden" id="timetable_thursday_to" name="timetable_thursday_to" <%% if (entity) { %>value="<%%=entity.timetable_thursday_to%>"<%% } %>/>                
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                  <input type="checkbox" name="timetable_friday" value="true" <%% if (entity && entity.timetable_friday){%>checked<%%}%>><%=t.days.friday%></input>
+                </div>
+                <select id="timetable_friday_from_hours" name="timetable_friday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_friday_from_minutes" name="timetable_friday_from_minutes"></select>
+                <input type="hidden" id="timetable_friday_from" name="timetable_friday_from"  <%% if (entity) { %>value="<%%=entity.timetable_friday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_friday_to_hours" name="timetable_friday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_friday_to_minutes" name="timetable_friday_to_minutes"></select>
+                <input type="hidden" id="timetable_friday_to" name="timetable_friday_to" <%% if (entity) { %>value="<%%=entity.timetable_friday_to%>"<%% } %>/>                
+              </div>
+              <div class="formrow">
+                <div class="grid_2">
+                  <input type="checkbox" name="timetable_saturday" value="true" <%% if (entity && entity.timetable_saturday){%>checked<%%}%>><%=t.days.saturday%></input>
+                </div>
+                <select id="timetable_saturday_from_hours" name="timetable_saturday_from_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_saturday_from_minutes" name="timetable_saturday_from_minutes"></select>
+                <input type="hidden" id="timetable_saturday_from" name="timetable_saturday_from"  <%% if (entity) { %>value="<%%=entity.timetable_saturday_from%>"<%% } %>/>
+                &nbsp;<%= t.guiblock.timetable.to%>&nbsp;
+                <select id="timetable_saturday_to_hours" name="timetable_saturday_to_hours"></select>&nbsp;:&nbsp;
+                <select id="timetable_saturday_to_minutes" name="timetable_saturday_to_minutes"></select>
+                <input type="hidden" id="timetable_saturday_to" name="timetable_saturday_to" <%% if (entity) { %>value="<%%=entity.timetable_saturday_to%>"<%% } %>/>                
+              </div>                                                        
+            </div>

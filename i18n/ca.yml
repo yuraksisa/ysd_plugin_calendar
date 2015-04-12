@@ -3,6 +3,14 @@ system_admin_menu:
     calendar_menu:
       title: Calendaris
       calendars: Calendaris
+days:
+  sunday: Diumenge
+  monday: Dilluns
+  tuesday: Dimarts
+  wednesday: Dimecres
+  thursday: Dijous
+  friday: Divendres
+  saturday: Dissabte
 calendar_management:
   title: Calendaris
   description: Calendaris
@@ -30,3 +38,17 @@ event_management:
     description: Descripció
     from_required: Des de obligatori
     to_required: Fins obligatori
+timetable_management:
+  title: Horaris
+  description: Horaris
+  table:
+    id: Id
+    name: Nom
+    description: Descripció
+  form:
+    name: Nom
+    description: Descripció
+    name_required: Nom obligatori    
+guiblock:
+  timetable:
+    description: Horari
