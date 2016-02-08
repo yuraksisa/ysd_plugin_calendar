@@ -8,32 +8,22 @@
     </div>
     <div class="grid_5">
       <div class="left-margin">
-        <div class="guiblock">
-      	  <div class="formrow">
-            <span class="entity-fieldlabel more_contrast_text">Calendario:</span>
-            <span class="entity-fieldvalue"><%=calendar.name%></span>
-          </div>
-      	  <div class="formrow">
-            <span class="entity-fieldlabel more_contrast_text">Descripción:</span>
-            <span class="entity-fieldvalue"><%=calendar.description%></span>
-          </div>        
-        </div>
         <div id="action_empty" class="bottom-margin-1line">
-           <button class="form-button new-entity-button action-button entity-management-button" 
+           <button id="new_event" class="form-button green-button" 
                    style="display:block; margin: 0 auto; width: 100%; background-color: green" title="new">
          	  Nuevo evento
            </button>
         </div>
-        <div id="action_form" class="elements-list all-space" style="display:none">
+        <div id="action_form" class="elements-list all-space" style="display:none"> 
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<script type="text/tmpl" id="element_template_form">
+<script type="text/tmpl" id="calendar_element_template_form">
               
-     <form name="element" id="calendar_event_management_form">
+     <form name="calendar_element" id="calendar_event_management_form">
         
         <div class="form-fields">
         
@@ -45,11 +35,11 @@
 
           <div class="formrow">
              <label for="from" class="fieldtitle"><%=t.event_management.form.from%><span class="mandatoryfield">*</span></label> 
-             <input type="text" name="from" id="from" class="fieldcontrol date_control" size="10" <%% if (entity) { %> value="<%%= entity.from %>" <%% } %>/>
+             <input type="text" name="from" id="from" class="fieldcontrol date_control" size="10" <%% if (entity) { %> value="<%%= entity.from.toString('dd/MM/yyyy') %>" <%% } %>/>
           </div>
           <div class="formrow">
              <label for="to" class="fieldtitle"><%=t.event_management.form.to%><span class="mandatoryfield">*</span></label> 
-             <input type="text" name="to" id="to" class="fieldcontrol date_control" size="10" <%% if (entity) { %> value="<%%= entity.to %>" <%% } %>/>
+             <input type="text" name="to" id="to" class="fieldcontrol date_control" size="10" <%% if (entity) { %> value="<%%= entity.to.toString('dd/MM/yyyy') %>" <%% } %>/>
           </div>
           <div class="formrow">
              <label for="event_type[id]" class="fieldtitle"><%=t.event_management.form.type%></label>
@@ -63,16 +53,15 @@
 
         </div>
         
-        <div class="bottom-navigation-bar navigation-bar">
+        <div class="bottom-navigation-bar navigation-bar" style="padding-right: 0px;">
              <div class="navigation-bar-crud-buttons">
                 <%% if (entity) { %>
-                  <button type="button" class="form-button new-entity-button action-button entity-management-button" 
-                      style="background-color: green" title="new">Nuevo evento</button>                	
-                  <button type="button" class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>                     	
-                  <button type="button" class="form-button update-entity-button action-button entity-management-button" title="<%=t.entitymanagement.update%>"><%=t.entitymanagement.update%></button>                  
+                  <button type="button" class="form-button action-button entity-management-button green-button" title="new">Nuevo evento</button>                	
+                  <button id="delete_event" type="button" class="form-button action-button entity-management-button red-button" title="delete"><%= t.entitymanagement.delete %></button>                     	
+                  <button id="update_event" type="button" class="form-button action-button entity-management-button blue-button" title="<%=t.entitymanagement.update%>"><%=t.entitymanagement.update%></button>                  
                 <%% } 
                    else { %>
-                  <input type="button" class="create-entity-button action-button entity-management-button" value="<%=t.entitymanagement.create%>"/>
+                  <button id="create_event" type="button" class="form-button action-button entity-management-button blue-button" title="<%=t.entitymanagement.create%>"><%=t.entitymanagement.create%></button>
                 <%% } %>
              </div>
         </div>

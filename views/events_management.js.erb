@@ -1,7 +1,11 @@
 require(['jquery', 'YSDEntityManagement', 'YSDForms', 
           'YSDRemoteDataSource', 'YSDSelectSelector',
-          'ysdtemplate', 'YSDjson2', 'jquery.ui', 'jquery.ui.datepicker-es',
-          'jquery.formparams', 'jquery.validate'], 
+          'ysdtemplate', 'YSDjson2',
+          'jquery.validate',
+          'jquery.calendar',
+          'jquery.ui', 'jquery.ui.datepicker-es',
+          'jquery.ui.datepicker.validation',
+          'jquery.formparams','datejs'], 
           function($, EntityManagement, YSDForms,
             RemoteDataSource, SelectSelector, tmpl) {
 
@@ -170,6 +174,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
            week: 'semana',
            day: 'día'
         },
+        defaultDate: new Date(),
 		    eventClick: function(event) {
            if (event.id) {
            	 eventsManagementModel.loadEvent(event.id);
@@ -178,7 +183,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
         }        
       });
 
-      $('.new-entity-button').bind('click', function() {
+      $('#new_event').bind('click', function() {
         eventsManagementController.buttonNewEventClick();
       });
 
@@ -197,7 +202,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
       switch (status) {
       	 case 'create':
       	   $('#action_empty').hide();
-      	   $('#action_form').html(tmpl('element_template_form', {entity: null}));
+      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: null}));
       	   $('#action_form').show();   
       	   this.configureForm();   	 
       	   break;
@@ -207,7 +212,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
       	   break;
       	 case 'event_loaded': 
       	   $('#action_empty').hide();
-      	   $('#action_form').html(tmpl('element_template_form', {entity: eventsManagementModel.event}));
+      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: eventsManagementModel.event}));
       	   $('#action_form').show();
       	   this.configureForm();
       	   break;
@@ -225,45 +230,38 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
 
     configureForm: function() {
 
-         var locale = $.datepicker.regional["<%=session[:locale] || 'es'%>"];             
-         $('#from').datepicker(
-                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:1, 
-                  dateFormat: 'dd/mm/yy'},
-                  locale);
-         $('#to').datepicker(
-                 {controlType: 'select', showTimezone: false, useLocalTimezone: true, numberOfMonths:1, 
-                  dateFormat: 'dd/mm/yy'},
-                  locale);
-
          var entity = eventsManagementModel.event;
+         var locale = $.datepicker.regional["<%=session[:locale] || 'es'%>"];             
 
-         if (entity != null) {
-           $('#from').datepicker('setDate', entity.from);
-           $('#to').datepicker('setDate', entity.to);
+         // http://oneyoung.im/jquery-calendar/
+         $('#from').datePicker();
+         $('#to').datePicker();
+         if (entity) {
+           $('#from').val(entity.from.toString("dd/MM/yyyy"));
+           $('#to').val(entity.to.toString("dd/MM/yyyy"));         
          }
 
          var eventTypeDataSource = new RemoteDataSource('/api/event-types',{'id':'id','description':'name'});
          var eventTypeValue = (entity && entity.event_type_id)?entity.event_type_id:null;
          var eventTypeSelector = new SelectSelector('event_type[id]', eventTypeDataSource, eventTypeValue); 
 
-         $('.create-entity-button').bind('click', function() {
+         $('#create_event').bind('click', function() {
          	eventsManagementController.buttonCreateEventClick(this);
          });
 
-         $('.update-entity-button').bind('click', function() {
+         $('#update_event').bind('click', function() {
          	eventsManagementController.buttonUpdateEventClick(this);
          })
 
-         $('.delete-entity-button').bind('click', function(){
+         $('#delete_event').bind('click', function(){
           eventsManagementController.buttonDeleteEventClick(this);        
          });
 
-         $('.new-entity-button').bind('click', function() {
+         $('#new_event').bind('click', function() {
             eventsManagementController.buttonNewEventClick();
          });
 
          this.configValidation();
-
     },
 
     configValidation: function() {
@@ -292,6 +290,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
                  required : '<%=t.event_management.form.to_required%>'
                }
             }
+            
             
           }
          );
