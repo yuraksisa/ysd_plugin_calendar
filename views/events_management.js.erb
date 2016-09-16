@@ -202,7 +202,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
       switch (status) {
       	 case 'create':
       	   $('#action_empty').hide();
-      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: null}));
+      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: null, calendar_id: <%=calendar.id%> }));
       	   $('#action_form').show();   
       	   this.configureForm();   	 
       	   break;
@@ -212,7 +212,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
       	   break;
       	 case 'event_loaded': 
       	   $('#action_empty').hide();
-      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: eventsManagementModel.event}));
+      	   $('#action_form').html(tmpl('calendar_element_template_form', {entity: eventsManagementModel.event, calendar_id: <%=calendar.id%>}));
       	   $('#action_form').show();
       	   this.configureForm();
       	   break;
