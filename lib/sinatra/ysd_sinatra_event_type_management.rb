@@ -9,7 +9,7 @@ module Sinatra
         app.get '/admin/calendar/event-types/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
 
           locals = {:event_type_page_size => 20}
-          load_em_page :calendars_management, nil, false, :locals => locals
+          load_em_page :event_types_management, nil, false, :locals => locals
 
         end
 

@@ -13,32 +13,27 @@ module Sinatra
           
           app.post path do
 
-            page = params[:page].to_i || 1
-            limit = 20
-            offset = (page-1) * 20
-
-            conditions = {}         
+            page = [params[:page].to_i, 1].max
+            page_size = 20
+            offset_order_query = {:offset => (page - 1)  * page_size, :limit => page_size, :order => [:name.asc]}
             
-            if request.media_type == "application/x-www-form-urlencoded" # Just the text
-              search_text = if params[:search]
-                              params[:search]
-                            else
-                              request.body.rewind
-                              request.body.read
-                            end
-              conditions = Conditions::JoinComparison.new('$or', 
-                              [Conditions::Comparison.new(:id, '$eq', search_text.to_i),
-                               Conditions::Comparison.new(:name, '$eq', search_text.upcase)])   
+            if request.media_type == "application/json"
+              request.body.rewind
+              search_request = JSON.parse(URI.unescape(request.body.read))
+              search_text = search_request['search']
+              conditions = Conditions::JoinComparison.new('$or',
+                                                          [Conditions::Comparison.new(:name, '$like', "%#{search_text}%"),
+                                                           Conditions::Comparison.new(:description, '$like', "%#{search_text}%")
+                                                          ])
 
-              total = conditions.build_datamapper(::Yito::Model::Calendar::Calendar).all.count 
-              data = conditions.build_datamapper(::Yito::Model::Calendar::Calendar).all(:limit => limit, :offset => offset) 
+              total = conditions.build_datamapper(::Yito::Model::Calendar::Calendar).all.count
+              data = conditions.build_datamapper(::Yito::Model::Calendar::Calendar).all(offset_order_query)
+
             else
-              data  = ::Yito::Model::Calendar::Calendar.all(:limit => limit, :offset => offset)
               total = ::Yito::Model::Calendar::Calendar.count
-                                          
-            end
+              data  = ::Yito::Model::Calendar::Calendar.all(offset_order_query)
+            end            
             
-          
             content_type :json
             {:data => data, :summary => {:total => total}}.to_json
           
