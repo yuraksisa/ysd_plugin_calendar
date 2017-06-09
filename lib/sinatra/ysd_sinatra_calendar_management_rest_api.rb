@@ -55,6 +55,21 @@ module Sinatra
         end
 
         #
+        # Get the calendar events
+        #
+        app.get "/api/calendar/:id/event-types" do
+
+          if calendar = ::Yito::Model::Calendar::Calendar.get(params['id'].to_i)
+            status 200
+            content_type :json
+            calendar.event_types.to_json
+          else
+            status 404
+          end
+
+        end 
+
+        #
         # Get a calendar
         #
         app.get "/api/calendar/:id" do

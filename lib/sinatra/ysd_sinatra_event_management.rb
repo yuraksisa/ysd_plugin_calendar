@@ -15,7 +15,8 @@ module Sinatra
           if calendar = ::Yito::Model::Calendar::Calendar.get(params[:calendar_id])
             locals = {:calendar => calendar,
                       :year => year, 
-                      :month => month}
+                      :month => month,
+                      :mode => (params[:mode] || 'date')}
             load_page :events_management, {:locals => locals}
           else
             status 401

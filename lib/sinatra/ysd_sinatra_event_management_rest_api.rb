@@ -59,15 +59,24 @@ module Sinatra
               ]
             )
             events = condition.build_datamapper(::Yito::Model::Calendar::Event).map do |event|
-            {:id => event.id,
-             :title => "#{event.event_type.description} #{event.description.empty? ? '': ' - ' + event.description}",
-             :start => event.from,
-             :end => event.to,
-             :editable => false,
-             :backgroundColor => event.event_type.name == 'not_available' ? 'rgb(255, 0, 0)' : 
-               event.event_type.name == 'payment_enabled' ? 'rgb(21, 202, 9)' : 
-               evnet.event_type.name == 'activity' ? 'rgb(20, 22, 207)' : 'rgb(0,0,0)' ,
-             :textColor => 'white'}
+              title = ''
+              if params[:mode] == 'timestamp'
+                title << event.from.strftime('%H:%M')
+                title << ' - '
+              end
+              title << "#{event.event_type.description} #{event.description.empty? ? '': ' - ' + event.description}"
+              {:id => event.id,
+               :title => title,
+               :start => event.from,
+               :end => event.to,
+               :editable => false,
+               :backgroundColor =>
+                 event.event_type.name == 'not_available' ? 'rgb(255, 0, 0)' :
+                 event.event_type.name == 'payment_enabled' ? 'rgb(21, 202, 9)' :
+                 event.event_type.name == 'activity' ? 'rgb(20, 22, 207)' :
+                 event.event_type.name == 'booking_pickup' ? 'rgb(38, 22, 161)' :
+                 event.event_type.name == 'booking_return' ? 'rgb(161, 22, 58)' : 'rgb(0,0,0)' ,
+               :textColor => 'white'}
           end
 
           else

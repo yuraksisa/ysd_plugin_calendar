@@ -5,7 +5,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
           'jquery.calendar',
           'jquery.ui', 'jquery.ui.datepicker-es',
           'jquery.ui.datepicker.validation',
-          'jquery.formparams','datejs'], 
+          'jquery.formparams','datejs','jquery.ui.timepicker'],
           function($, EntityManagement, YSDForms,
             RemoteDataSource, SelectSelector, tmpl) {
 
@@ -162,7 +162,7 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
         month: <%=month%>,
         editable: false,
         lang: '<%=session[:locale]%>',
-        events: '/api/events/<%=calendar.id%>',
+        events: '/api/events/<%=calendar.id%>?mode=<%=mode%>',
         firstDay: 1,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
         monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
@@ -234,12 +234,31 @@ require(['jquery', 'YSDEntityManagement', 'YSDForms',
          var locale = $.datepicker.regional["<%=session[:locale] || 'es'%>"];             
 
          // http://oneyoung.im/jquery-calendar/
-         $('#from').datePicker();
-         $('#to').datePicker();
-         if (entity) {
-           $('#from').val(entity.from.toString("dd/MM/yyyy"));
-           $('#to').val(entity.to.toString("dd/MM/yyyy"));         
-         }
+         <% if mode == 'timestamp' %>
+           $('input[name=from]').datetimepicker({controlType: 'select',
+                showTimezone: false, useLocalTimezone: true,
+                numberOfMonths:1, dateFormat: 'dd/mm/yy'},
+            '<%= session[:locale] %>');
+           $('input[name=to]').datetimepicker({controlType: 'select',
+                showTimezone: false, useLocalTimezone: true,
+                numberOfMonths:1, dateFormat: 'dd/mm/yy'},
+            '<%= session[:locale] %>');
+           if (entity) {
+              $('input[name=from]').datetimepicker('setDate', entity.from);
+              $('input[name=to]').datetimepicker('setDate', entity.to);
+           }
+           else {
+              $('input[name=from]').datetimepicker('setDate', new Date());
+              $('input[name=to]').datetimepicker('setDate', new Date());
+           }
+         <% else %>
+           $('#from').datePicker();
+           $('#to').datePicker();
+           if (entity) {
+             $('#from').val(entity.from.toString("dd/MM/yyyy"));
+             $('#to').val(entity.to.toString("dd/MM/yyyy"));
+           }
+         <% end %>
 
          var eventTypeDataSource = new RemoteDataSource('/api/event-types',{'id':'id','description':'name'});
          var eventTypeValue = (entity && entity.event_type_id)?entity.event_type_id:null;
