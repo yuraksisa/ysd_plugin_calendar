@@ -1,0 +1,181 @@
+require(['jquery','YSDTimeControl','jquery.formparams','jquery.toast'],
+    function($,TimeControl) {
+        timetableEditionModel_<%=@timetable.id%> = {
+
+            update: function() {
+                var request = $('#timetable_form_<%=@timetable.id%>').formParams();
+                if (request.timetable_sunday == 'on') {
+                    request.timetable_sunday = true;
+                }
+                else {
+                    request.timetable_sunday = false;
+                }
+                if (request.timetable_monday == 'on') {
+                    request.timetable_monday = true;
+                }
+                else {
+                    request.timetable_monday = false;
+                }
+                if (request.timetable_tuesday == 'on') {
+                    request.timetable_tuesday = true;
+                }
+                else {
+                    request.timetable_tuesday = false;
+                }
+                if (request.timetable_wednesday == 'on') {
+                    request.timetable_wednesday = true;
+                }
+                else {
+                    request.timetable_wednesday = false;
+                }
+                if (request.timetable_thursday == 'on') {
+                    request.timetable_thursday = true;
+                }
+                else {
+                    request.timetable_thursday = false;
+                }
+                if (request.timetable_friday == 'on') {
+                    request.timetable_friday = true;
+                }
+                else {
+                    request.timetable_friday = false;
+                }
+                if (request.timetable_saturday == 'on') {
+                    request.timetable_saturday = true;
+                }
+                else {
+                    request.timetable_saturday = false;
+                }
+                var url = '/api/timetable';
+                var requestJSON = JSON.stringify(request);
+                $.ajax({
+                    type: 'PUT',
+                    data : requestJSON,
+                    url : url,
+                    success: function(data, textStatus, jqXHR) {
+                        $.toast({
+                            heading: 'Horario actualizado',
+                            text: 'Horario actualizado con éxito',
+                            position: 'top-right',
+                            bgColor: 'rgb(56, 154, 56)',
+                            textColor: 'white',
+                            loader: false,
+                            stack: false
+                        });
+                    },
+                    error: function(data, textStatus, jqXHR) {
+                        alert('Error actualizando horario');
+                    }
+                });
+            }
+
+        }
+
+        timetableEditionController_<%=@timetable.id%> = {
+
+            btnUpdateClick: function() {
+                timetableEditionModel_<%=@timetable.id%>.update();
+            }
+
+        }
+
+        timetableEditionView_<%=@timetable.id%> = {
+
+            init: function() {
+
+                $('#timetable_form_<%=@timetable.id%> #update_timetable_btn').bind('click', function(){
+                   timetableEditionController_<%=@timetable.id%>.btnUpdateClick();
+                });
+
+                var sundayFrom = new TimeControl(
+                    document.getElementById('timetable_sunday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_sunday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_sunday_from_<%=@timetable.id%>'));
+                sundayFrom.setTime($('#timetable_sunday_from_<%=@timetable.id%>').val());
+
+                var sundayTo = new TimeControl(
+                    document.getElementById('timetable_sunday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_sunday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_sunday_to_<%=@timetable.id%>'));
+                sundayTo.setTime($('#timetable_sunday_to_<%=@timetable.id%>').val());
+
+                var mondayFrom = new TimeControl(
+                    document.getElementById('timetable_monday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_monday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_monday_from_<%=@timetable.id%>'));
+                mondayFrom.setTime($('#timetable_monday_from_<%=@timetable.id%>').val());
+
+                var mondayTo = new TimeControl(
+                    document.getElementById('timetable_monday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_monday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_monday_to_<%=@timetable.id%>'));
+                mondayTo.setTime($('#timetable_monday_to_<%=@timetable.id%>').val());
+
+                var tuesdayFrom = new TimeControl(
+                    document.getElementById('timetable_tuesday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_tuesday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_tuesday_from_<%=@timetable.id%>'));
+                tuesdayFrom.setTime($('#timetable_tuesday_from_<%=@timetable.id%>').val());
+
+                var tuesdayTo = new TimeControl(
+                    document.getElementById('timetable_tuesday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_tuesday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_tuesday_to_<%=@timetable.id%>'));
+                tuesdayTo.setTime($('#timetable_tuesday_to_<%=@timetable.id%>').val());
+
+                var wednesdayFrom = new TimeControl(
+                    document.getElementById('timetable_wednesday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_wednesday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_wednesday_from_<%=@timetable.id%>'));
+                wednesdayFrom.setTime($('#timetable_wednesday_from_<%=@timetable.id%>').val());
+
+                var wednesdayTo = new TimeControl(
+                    document.getElementById('timetable_wednesday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_wednesday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_wednesday_to_<%=@timetable.id%>'));
+                wednesdayTo.setTime($('#timetable_wednesday_to_<%=@timetable.id%>').val());
+
+                var thursdayFrom = new TimeControl(
+                    document.getElementById('timetable_thursday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_thursday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_thursday_from_<%=@timetable.id%>'));
+                thursdayFrom.setTime($('#timetable_thursday_from_<%=@timetable.id%>').val());
+
+                var thursdayTo = new TimeControl(
+                    document.getElementById('timetable_thursday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_thursday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_thursday_to_<%=@timetable.id%>'));
+                thursdayTo.setTime($('#timetable_thursday_to_<%=@timetable.id%>').val());
+
+                var fridayFrom = new TimeControl(
+                    document.getElementById('timetable_friday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_friday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_friday_from_<%=@timetable.id%>'));
+                fridayFrom.setTime($('#timetable_friday_from_<%=@timetable.id%>').val());
+
+                var fridayTo = new TimeControl(
+                    document.getElementById('timetable_friday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_friday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_friday_to_<%=@timetable.id%>'));
+                fridayTo.setTime($('#timetable_friday_to_<%=@timetable.id%>').val());
+
+                var saturdayFrom = new TimeControl(
+                    document.getElementById('timetable_saturday_from_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_saturday_from_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_saturday_from_<%=@timetable.id%>'));
+                saturdayFrom.setTime($('#timetable_saturday_from_<%=@timetable.id%>').val());
+
+                var saturdayTo = new TimeControl(
+                    document.getElementById('timetable_saturday_to_hours_<%=@timetable.id%>'),
+                    document.getElementById('timetable_saturday_to_minutes_<%=@timetable.id%>'),
+                    document.getElementById('timetable_saturday_to_<%=@timetable.id%>'));
+                saturdayTo.setTime($('#timetable_saturday_to_<%=@timetable.id%>').val());
+
+            }
+
+        }
+
+        timetableEditionView_<%=@timetable.id%>.init();
+
+
+    });

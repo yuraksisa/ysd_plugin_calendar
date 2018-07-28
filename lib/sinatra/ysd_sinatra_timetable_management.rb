@@ -5,6 +5,20 @@ module Sinatra
       def self.registered(app)
 
         #
+        # Edit a timetable
+        #
+        app.get '/admin/calendar/timetables/:id', :allowed_usergroups => ['calendar_manager', 'staff'] do
+
+          if @timetable = ::Yito::Model::Calendar::Timetable.get(params[:id])
+            load_page :timetable_edition
+          else
+            status 404
+          end
+
+        end
+
+
+        #
         # Timetables page
         #
         app.get '/admin/calendar/timetables/?*', :allowed_usergroups => ['calendar_manager','staff'] do 
@@ -16,11 +30,10 @@ module Sinatra
           locals = aspects_render.render(nil)
           locals.store(:timetable_page_size, 20)
 
-          p "LOCALS: #{locals}"
-
           load_em_page :timetables_management, nil, false, :locals => locals
 
         end
+
 
       end
 

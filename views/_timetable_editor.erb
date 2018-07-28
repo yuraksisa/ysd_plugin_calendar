@@ -1,0 +1,127 @@
+<div class="row">
+<form id="timetable_form_<%=@timetable.id%>">
+  <input type="hidden" name="id" id="id" value="<%=@timetable.id%>"/>
+  <div class="col-lg-12 col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Día</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_sunday" <% if @timetable.timetable_sunday%>checked<%end%>><%=t.days.sunday%></input>
+          </td>
+          <td>
+            <select id="timetable_sunday_from_hours_<%=@timetable.id%>" name="timetable_sunday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_sunday_from_minutes_<%=@timetable.id%>" name="timetable_sunday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_sunday_from_<%=@timetable.id%>" name="timetable_sunday_from"  value="<%=@timetable.timetable_sunday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_sunday_to_hours_<%=@timetable.id%>" name="timetable_sunday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_sunday_to_minutes_<%=@timetable.id%>" name="timetable_sunday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_sunday_to_<%=@timetable.id%>" name="timetable_sunday_to" value="<%=@timetable.timetable_sunday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_monday" <% if @timetable.timetable_monday%>checked<%end%>><%=t.days.monday%></input>
+          </td>
+          <td>
+            <select id="timetable_monday_from_hours_<%=@timetable.id%>" name="timetable_monday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_monday_from_minutes_<%=@timetable.id%>" name="timetable_monday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_monday_from_<%=@timetable.id%>" name="timetable_monday_from"  value="<%=@timetable.timetable_monday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_monday_to_hours_<%=@timetable.id%>" name="timetable_monday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_monday_to_minutes_<%=@timetable.id%>" name="timetable_monday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_monday_to_<%=@timetable.id%>" name="timetable_monday_to" value="<%=@timetable.timetable_monday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_tuesday" <% if @timetable.timetable_tuesday%>checked<%end%>><%=t.days.tuesday%></input>
+          </td>
+          <td>
+            <select id="timetable_tuesday_from_hours_<%=@timetable.id%>" name="timetable_tuesday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_tuesday_from_minutes_<%=@timetable.id%>" name="timetable_tuesday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_tuesday_from_<%=@timetable.id%>" name="timetable_tuesday_from"  value="<%=@timetable.timetable_tuesday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_tuesday_to_hours_<%=@timetable.id%>" name="timetable_tuesday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_tuesday_to_minutes_<%=@timetable.id%>" name="timetable_tuesday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_tuesday_to_<%=@timetable.id%>" name="timetable_tuesday_to" value="<%=@timetable.timetable_tuesday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_wednesday" <% if @timetable.timetable_wednesday%>checked<%end%>><%=t.days.wednesday%></input>
+          </td>
+          <td>
+            <select id="timetable_wednesday_from_hours_<%=@timetable.id%>" name="timetable_wednesday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_wednesday_from_minutes_<%=@timetable.id%>" name="timetable_wednesday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_wednesday_from_<%=@timetable.id%>" name="timetable_wednesday_from"  value="<%=@timetable.timetable_wednesday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_wednesday_to_hours_<%=@timetable.id%>" name="timetable_wednesday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_wednesday_to_minutes_<%=@timetable.id%>" name="timetable_wednesday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_wednesday_to_<%=@timetable.id%>" name="timetable_wednesday_to" value="<%=@timetable.timetable_wednesday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_thursday" <% if @timetable.timetable_thursday%>checked<%end%>><%=t.days.thursday%></input>
+          </td>
+          <td>
+            <select id="timetable_thursday_from_hours_<%=@timetable.id%>" name="timetable_thursday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_thursday_from_minutes_<%=@timetable.id%>" name="timetable_thursday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_thursday_from_<%=@timetable.id%>" name="timetable_thursday_from"  value="<%=@timetable.timetable_thursday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_thursday_to_hours_<%=@timetable.id%>" name="timetable_thursday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_thursday_to_minutes_<%=@timetable.id%>" name="timetable_thursday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_thursday_to_<%=@timetable.id%>" name="timetable_thursday_to" value="<%=@timetable.timetable_thursday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_friday" <% if @timetable.timetable_friday%>checked<%end%>><%=t.days.friday%></input>
+          </td>
+          <td>
+            <select id="timetable_friday_from_hours_<%=@timetable.id%>" name="timetable_friday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_friday_from_minutes_<%=@timetable.id%>" name="timetable_friday_from_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_friday_from_<%=@timetable.id%>" name="timetable_friday_from"  value="<%=@timetable.timetable_friday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_friday_to_hours_<%=@timetable.id%>" name="timetable_friday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_friday_to_minutes_<%=@timetable.id%>" name="timetable_friday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_friday_to_<%=@timetable.id%>" name="timetable_friday_to" value="<%=@timetable.timetable_friday_to%>"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="timetable_saturday" <% if @timetable.timetable_saturday%>checked<%end%>><%=t.days.saturday%></input>
+          </td>
+          <td>
+            <select id="timetable_saturday_from_hours_<%=@timetable.id%>" name="timetable_saturday_from_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_saturday_from_minutes_<%=@timetable.id%>" name="timetable_saturday_from_minutes"  class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_saturday_from_<%=@timetable.id%>" name="timetable_saturday_from"  value="<%=@timetable.timetable_saturday_from%>"/>
+          </td>
+          <td>
+            <select id="timetable_saturday_to_hours_<%=@timetable.id%>" name="timetable_saturday_to_hours" class="form-control" style="width: 60px; display: inline"></select>&nbsp;:&nbsp;
+            <select id="timetable_saturday_to_minutes_<%=@timetable.id%>" name="timetable_saturday_to_minutes" class="form-control" style="width: 60px; display: inline"></select>
+            <input type="hidden" id="timetable_saturday_to_<%=@timetable.id%>" name="timetable_saturday_to" value="<%=@timetable.timetable_saturday_to%>"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <button type="button" id="update_timetable_btn" class="btn btn-primary pull-right"><i class="fa fa-save push-5-r"></i><%=t.entitymanagement.update%></button>
+  </div>
+</form>
+</div>
+<br>
+<br>
