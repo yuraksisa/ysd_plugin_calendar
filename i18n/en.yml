@@ -48,7 +48,11 @@ timetable_management:
   form:
     name: Name
     description: Description
-    name_required: Name is required    
+    name_required: Name is required
+timetable_editor:
+  days: Day
+  start: Start
+  end: End       
 guiblock:
   timetable:
     description: Timetable    
